@@ -8,7 +8,6 @@ const {dbConection} = require("./database/config");
 const cors = require("cors");
 
 //Crear el servidor de express
-const PORT =process.env.PORT
 
 const app= express();
 
@@ -44,9 +43,10 @@ app.use("/api/events",require("./routes/events"));
 // Escuchar peticiones
 
 app.listen(
-    process.env.PORT,
+    process.env.PORT || 4000,
     () =>{
-        console.log(`Servidor Corriendo en puerto: ${process.env.PORT} `)
+        
+        console.log(`Servidor Corriendo en puerto: ${process.env.PORT || 4000 } `)
     }
 )
 

@@ -13,6 +13,7 @@ const app= express();
 
 
 //BASE DE DATOS
+//----------CONEXION A LA BASE DE DATOS CREADA EN MONGODB---------
 
 dbConection();
 
@@ -23,8 +24,16 @@ app.use(cors());
 
 
 //Directorio publico
+//DIRECTORIO DE EL FRONT-END
+app.use( express.static("./client/public"));
 
-app.use( express.static("public"));
+
+//------------------Directorio del admin--------------------
+
+
+
+app.use("/admin-hi-baby",express.static("./client/admin"))
+
 
 
 // Lectura y parseo del body
@@ -34,10 +43,26 @@ app.use( express.json() );
 
 
 
-//Rutas , cuando refresheas la pagina!
+//                              Rutas , cuando refresheas la pagina!
+
+// -----------RUTAS DE LA AUTENTICACION-----------------
 app.use("/api/auth", require("./routes/auth"));
 
+
+// ----------------TODO:: HACER LA CREACION DE EVENTOS EN EL BACKEND----------------
 app.use("/api/events",require("./routes/events"));
+
+
+// ------------TODO: CREACION DE LA TIENDA ----------
+
+app.use("/admin/api/auth",require("./routes/admin/auth_admin"));
+
+
+
+app.use("/admin/api",require("./routes/admin/store/storeRoutes"));
+
+
+
 
 
 // Escuchar peticiones

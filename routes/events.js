@@ -8,8 +8,13 @@ const { getEventos, crearEvento, actualizarEvento, eliminarEvento } = require(".
 const { check } = require("express-validator");
 const validarCampos = require("../middlewares/validar-campos");
 
-
 const {isDate}= require("../helpers/isdate");
+
+
+
+
+
+
 //TOdas tienen que pasar por la validacion del JWT
 //obtener eventos
 

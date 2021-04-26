@@ -1,13 +1,19 @@
 const {Router}= require("express");
-const { check } = require("express-validator");
 
 const router= Router();
+
+
 
 const {crearUsuario,login,renovarUsuario} = require("../controllers/auth");
 
 const validarCampos = require("../middlewares/validar-campos");
 
 const {validarJwt} = require("../middlewares/validar-jwt");
+
+
+//CHECK PARA VALIDAR LOS CAMPOS 
+const { check } = require("express-validator");
+
 
 router.post("/new",
             [ //Midlewares

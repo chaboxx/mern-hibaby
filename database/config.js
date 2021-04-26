@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
-
-const dbConection = async() =>{
+//CONEXION CON LA BASE DE DATOS
+const dbConection = async () =>{
 
     try{
         
@@ -12,7 +12,7 @@ const dbConection = async() =>{
         
         });
 
-        console.log("DB Online")
+        console.log("DB Online");
     
     }catch (error){
         console.log(error);
@@ -21,6 +21,7 @@ const dbConection = async() =>{
 
 }
 
+//EXPORTACION DE LA FUNCION QUE SE CONECTA A LA BASE DE DATOS
 module.exports={
     dbConection
 };

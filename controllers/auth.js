@@ -126,28 +126,16 @@ const login = async (req,res) =>{
 
     }
 
-    
-
-
-
-
-
-
-
-
-
-    
 }
 
-const renovarUsuario = async(req,res) =>{
+const renovarUsuario = async(req,res=response) =>{
     
 
-    const uid= req.uid;
-    const name=req.name;
+    const {uid,name} = req;
 
     //generar nuevo JWT
 
-    const token= await generarJwt();
+    const token= await generarJwt(uid,name);
 
     res.json({
         ok:true,
@@ -165,4 +153,3 @@ module.exports={
     renovarUsuario,
     login
 }
-

@@ -16,6 +16,8 @@ const {Schema,model} =require("mongoose");
 //const CategoriaSchema = model('CategoriaSchema');
 
 const productoSchema =  new Schema({
+    
+    categoriaGeneral:String,
     nombre:String,
     id:String,
     descripcion:String,

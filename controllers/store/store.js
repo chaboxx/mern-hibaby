@@ -6,6 +6,8 @@ const ProductoSchema= require("../../models/store/producto");
 
 const ObtenerProductos = async(req,res=response) =>{
 
+    console.log(req.file)
+
     const productos = await ProductoSchema.find();
 
 
@@ -23,12 +25,25 @@ const CrearNuevoProducto= async (req,res=response) =>{
 
     
 
-    const producto_nuevo= new ProductoSchema(req.body);
-
+    const producto_nuevo=  new ProductoSchema(req.body);
+    
+    
+    
     try{
-
+        
         producto_nuevo.id = req.id;
-
+        
+     
+        console.log(req.image)
+        if (req.file){
+            const {filename} = req.file;
+            producto_nuevo.setImgUrl(filename);
+        }
+        
+        
+        
+        
+        
         const productoGuardado = await producto_nuevo.save();
 
         
@@ -50,7 +65,7 @@ const ActualizarProducto= async (req,res=response) =>{
 
     const productoId = req.params.id;
 
-    const Id = req.id;
+    //const Id = req.uid;
 
     try{
         const producto = await ProductoSchema.findById( productoId);
@@ -62,19 +77,19 @@ const ActualizarProducto= async (req,res=response) =>{
             })
         }
 
-        if (producto.user.toString() !== Id){
+        /*if (producto.user.toString() !== Id){
             return res.status(401).json({
                 ok:false,
                 msg:"No tiene privilegio de editar este evento"
             })
-        }   
+        } */ 
 
         const nuevoProducto={
             ...req.body,
             user:Id
         }
 
-        const productoActualizado= await ProductoSchema.findByIdAndUpdate(eventoId,nuevoProducto);
+        const productoActualizado= await ProductoSchema.findByIdAndUpdate(productoId,nuevoProducto);
 
 
         res.json({
@@ -102,7 +117,7 @@ const EliminarProducto= async (req,res=response) =>{
 
     const productoId = req.params.id;
 
-    const id = req.id;
+    //const id = req.id;
 
     try{
         const producto = await ProductoSchema.findById( productoId);
@@ -115,12 +130,12 @@ const EliminarProducto= async (req,res=response) =>{
             })
         }
 
-        if (producto.user.toString() !== id){
+        /*if (producto.user.toString() !== id){
             return res.status(401).json({
                 ok:false,
                 msg:"No tiene privilegio de editar este evento"
             })
-        }   
+        } */  
 
        
 

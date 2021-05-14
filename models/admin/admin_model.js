@@ -9,7 +9,7 @@ const UsuarioAdminSchema = Schema({
         required:true,
         unique:true
     },
-    contraseña_admin:{
+    contraseña_admin:{  
         type:String,
         required:true,
         unique:true

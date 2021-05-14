@@ -10,6 +10,7 @@ const validarCamposAdmin = require("../../../middlewares/admin/mw_admin");
 
 const { ObtenerProductos,CrearNuevoProducto,ActualizarProducto,EliminarProducto } = require("../../../controllers/store/store");
 const { validarAJwt } = require("../../../middlewares/admin/validar-ajwt");
+const upload = require("../../../helpers/admin/multer");
 
 
 
@@ -29,19 +30,26 @@ router.get("/",
 
 //Crear nuevo evento
 
+
+
+
 router.post("/new",
         [
-            check("nombre","El nombre es obligatorio").not().isEmpty(),
-            check("id","El id es obligatorio").not().isEmpty(),
-            check("descripcion","La descripcion es obligatoria").not().isEmpty(),
-            check("materiales","Campo obligatorio.").not().isEmpty(),
-            check("precio","Campo obligatorio.").not().isEmpty().isNumeric(),
+            check("categoriaGeneral","Categoria general es obligatorio"),
+            check("nombre","El nombre es obligatorio"),
+            //check("id","El id es obligatorio").not().isEmpty(),
+            check("descripcion","La descripcion es obligatoria"),
+            check("materiales","Campo obligatorio."),
+            check("precio","Campo obligatorio."),
             check("categoria","Campo obligatorio."),
-            check("colores_imagenes","Campo obligatorio"),          
+            check("image","Campo obligatorio"),          
+            check("tallas","Campo obligatorio"),          
            
-            
+            check("genero","Campo obligatorio"),          
+            check("stock","El stock es necesario."),
             validarCamposAdmin
         ],
+        upload.single("image"),
         validarAJwt,
         CrearNuevoProducto);
 

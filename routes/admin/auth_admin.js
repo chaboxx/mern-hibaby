@@ -1,4 +1,4 @@
-const { Router, response } = require("express");
+    const { Router, response } = require("express");
 const { check } = require("express-validator");
 const {LoginSuperUsuario,CrearSuperUsuario} = require("../../controllers/admin/c_admin");
 const validarCamposAdmin = require("../../middlewares/admin/mw_admin");

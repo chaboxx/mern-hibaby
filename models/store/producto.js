@@ -15,27 +15,48 @@ const {Schema,model} =require("mongoose");
 
 //const CategoriaSchema = model('CategoriaSchema');
 
+
+require("dotenv");
+
 const productoSchema =  new Schema({
     
     categoriaGeneral:String,
     nombre:String,
-    id:String,
+    //id:String,
     descripcion:String,
     materiales:String,
     precio:Number,
     
-    categoria:{
-        type:Schema.Types.ObjectId,
-        ref:"CategoriaSchema"
-    },
-    colores_imagenes:{
+    categoria:[String],
 
+    image: String,
+
+    tallas:[String],
+
+    genero:String,
+
+    stock:Number,
+
+    user:{
         type:Schema.Types.ObjectId,
-        ref: "ColoresSchema",
+        ref:"UsuarioAdmin",
     }
-
-
 })
+
+productoSchema.methods.setImgUrl= function setImgUrl(filename){
+    const port = process.env.PORT || 4000; 
+    this.image = `http://localhost:4000/assets/${filename}`
+}
+
+productoSchema.method("toJSON",function(){
+    const {__v,_id,...object} = this.toObject();
+
+    object.id=_id;
+    return object;
+})
+
+
+
 
 //const modeloProducto = model("ProductoSchema",productoSchema)
 

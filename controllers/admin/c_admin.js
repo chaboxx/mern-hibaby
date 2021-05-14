@@ -40,14 +40,16 @@ const LoginSuperUsuario = async (req,res) =>{
 
         }
 
-        const token= await generarAJwt(user_admin,contraseña_admin)
+        const token= await generarAJwt(user.id,user.user_admin)
 
 
 
         res.status(201).json({
             ok:true,
             msg:"Login Exitoso",
-            token
+            token,
+            uid:user.id,
+            name:user.user_admin
             
         })
 

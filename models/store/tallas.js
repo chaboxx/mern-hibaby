@@ -6,12 +6,14 @@ const {Schema,model} = require("mongoose");
 
 
 const tallasSchema =  new Schema({
-    tallas:[String]
+    nombreTalla:String,
+    
+    stock: Number,
 
 })
 
 
 //const Tallas = model("TallasSchema",tallasSchema);
 
-module.exports=model("TallasSchema",tallasSchema);
+module.exports=model("tallas",tallasSchema);
 

@@ -1,6 +1,6 @@
-    const { Router, response } = require("express");
+const { Router, response } = require("express");
 const { check } = require("express-validator");
-const {LoginSuperUsuario,CrearSuperUsuario} = require("../../controllers/admin/c_admin");
+const {LoginSuperUsuario,CrearSuperUsuario, ObtenerUsuarios} = require("../../controllers/admin/c_admin");
 const validarCamposAdmin = require("../../middlewares/admin/mw_admin");
 
 
@@ -26,7 +26,10 @@ router.post("/new-admin",
             CrearSuperUsuario    
         );
     
-        
+
+router.get("/",ObtenerUsuarios
+
+);
 
 
    

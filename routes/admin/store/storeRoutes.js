@@ -1,5 +1,5 @@
 
-const express = require("express");
+        const express = require("express");
 
 
 const router = express.Router();
@@ -8,9 +8,10 @@ const { check } = require("express-validator");
 const validarCamposAdmin = require("../../../middlewares/admin/mw_admin");
 
 
-const { ObtenerProductos,CrearNuevoProducto,ActualizarProducto,EliminarProducto } = require("../../../controllers/store/store");
+const { ObtenerProductos,CrearNuevoProducto,ActualizarProducto,EliminarProducto,AñadirImagenesProducto } = require("../../../controllers/store/store");
 const { validarAJwt } = require("../../../middlewares/admin/validar-ajwt");
 const upload = require("../../../helpers/admin/multer");
+
 
 
 
@@ -31,32 +32,32 @@ router.get("/",
 //Crear nuevo evento
 
 
-
-
 router.post("/new",
         [
-            check("categoriaGeneral","Categoria general es obligatorio"),
             check("nombre","El nombre es obligatorio"),
+            check("categoriaGeneral","Categoria general es obligatorio"),
             //check("id","El id es obligatorio").not().isEmpty(),
             check("descripcion","La descripcion es obligatoria"),
             check("materiales","Campo obligatorio."),
+            check("genero","Campo obligatorio"),          
+            check("precio_mayor","Campo obligatorio"),
             check("precio","Campo obligatorio."),
             check("categoria","Campo obligatorio."),
-            check("image","Campo obligatorio"),          
-            check("tallas","Campo obligatorio"),          
+            check("colores","Campo obligatorio"),          
+            //check("tallas","Campo obligatorio"),          
            
-            check("genero","Campo obligatorio"),          
-            check("stock","El stock es necesario."),
+            //check("stock","El stock es necesario."),
             validarCamposAdmin
         ],
-        upload.single("image"),
         validarAJwt,
+        //subirImagenes,
+        upload.any(),
         CrearNuevoProducto);
 
+//Añadir imagenes
+router.put("/new/:id",validarAJwt,upload.any(),AñadirImagenesProducto)
 
-
-// Actualizar evento
-
+// Actualizar evento    
 router.put("/:id",validarAJwt,ActualizarProducto);
 
 //Borrar evento

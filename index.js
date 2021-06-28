@@ -11,12 +11,6 @@ const cors = require("cors");
 
 const app= express();
 
-const multer = require("multer");
-
-
-const path = require("path");
-const storage_ = require("./helpers/admin/multer");
-
 
 //BASE DE DATOS
 //----------CONEXION A LA BASE DE DATOS CREADA EN MONGODB---------
@@ -41,19 +35,15 @@ app.use( express.static("./client/public"));
 app.use("/admin-hi-baby",express.static("./client/admin"))
 
 
-//-----------------------IMAGENES------------------------------------
-
-//app.use(multer({storage:storage_}).single("image"));
-
-    
-app.use("/assets",express.static(`./client/storage/imgs`))
-
 
 // Lectura y parseo del body
 
 app.use( express.json() );
 
 
+//imagenes---
+
+app.use("/assets",express.static("./client/storage/imgs"))
 
 
 //                              Rutas , cuando refresheas la pagina!
@@ -62,17 +52,19 @@ app.use( express.json() );
 app.use("/api/auth", require("./routes/auth"));
 
 
+//------------RUTAS DEL STORE PARA EL FRONTEND ----------------
+
+app.use("/api/store",require("./routes/store"));
+
+
 // ----------------TODO:: HACER LA CREACION DE EVENTOS EN EL BACKEND----------------
 app.use("/api/events",require("./routes/events"));
 
 
 // ------------TODO: CREACION DE LA TIENDA ----------
 
-//----------------AUTENTICACION ADMIN
-
 app.use("/admin/api/auth",require("./routes/admin/auth_admin"));
 
-//----------------CRUD PRODUCTOS TIENDA
 
 
 app.use("/admin/api",require("./routes/admin/store/storeRoutes"));

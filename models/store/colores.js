@@ -1,28 +1,23 @@
 
 
-const {Schema,model} =require("mongoose");
+const {Schema,model} = require("mongoose");
+//const TallasSchema = require("./tallas");
 
-//const GeneroSchema =require("./genero");
-
-
-//const Genero = model(modeloGenero);
-
-//const Categoria = model(modeloCategoria);
+const ColoresSchema = new Schema({
 
 
-const coloresSchema =  new Schema({
-    colores:{
-        type:String,
-        required:true
-    },
-    genero:{
+
+    urlImagenes:[String],
+    
+    genero:String,
+
+    tallas:[{
         type:Schema.Types.ObjectId,
-        ref:"GeneroSchema"
-    }
+        ref:"tallas"
+    }]
+    
+});
+ 
+ 
+module.exports= model('colores', ColoresSchema);
 
-
-})
-
-//const Colores = model("ColoresSchema",coloresSchema)
-
-module.exports=model("ColoresSchema",coloresSchema);

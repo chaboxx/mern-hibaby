@@ -108,11 +108,22 @@ const CrearSuperUsuario = async (req,res) =>{
     
 }
 
+const ObtenerUsuarios = async(req,res) =>{
 
 
+
+    const usuario= await UsuarioAdmin.find();
+
+    res.json({
+        ok:true,
+        msg:"obtener usuarios admins",
+        usuario
+    })
+}
 
 module.exports={
     LoginSuperUsuario,
-    CrearSuperUsuario
+    CrearSuperUsuario,
+    ObtenerUsuarios
 
 };

@@ -69,8 +69,10 @@ app.use("/admin/api/auth",require("./routes/admin/auth_admin"));
 
 app.use("/admin/api",require("./routes/admin/store/storeRoutes"));
 
+//----------------CARRITO DE COMPRAS
 
 
+app.use("/api/checkout/carrito-compras",require("./routes/store/carritoComprasRoutes"));
 
 
 // Escuchar peticiones

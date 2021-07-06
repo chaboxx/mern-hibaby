@@ -1,5 +1,5 @@
 
-        const express = require("express");
+const express = require("express");
 
 
 const router = express.Router();
@@ -39,7 +39,9 @@ router.post("/new",
             //check("id","El id es obligatorio").not().isEmpty(),
             check("descripcion","La descripcion es obligatoria"),
             check("materiales","Campo obligatorio."),
-            check("genero","Campo obligatorio"),          
+            check("genero","Campo obligatorio"),
+            check("sku","Campo obligatorio"),
+            check("linkStore","Campo obligatorio"),          
             check("precio_mayor","Campo obligatorio"),
             check("precio","Campo obligatorio."),
             check("categoria","Campo obligatorio."),

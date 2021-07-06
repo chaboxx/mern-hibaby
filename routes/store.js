@@ -6,7 +6,8 @@ const ObtenerProductosFront = require("../controllers/store");
 
 const router = Router();
 
-/////////////////////--------- ADMINISTRACION------
+
+
 router.get("/",
         ObtenerProductosFront
         );

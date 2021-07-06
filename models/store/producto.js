@@ -23,11 +23,15 @@ const productoSchema =  new Schema({
     
     nombre:String,
     categoriaGeneral:String,
-    //id:String,
+  
     descripcion:String,
     materiales:[String],
     
-    //genero:String,
+    sku:String,
+
+    linkStore:String,
+
+    
     
     precioMayor:Number,
     
@@ -35,28 +39,14 @@ const productoSchema =  new Schema({
     
     categoria:[String],
 
-    //image: [String],
-
-    //tallas:[String],
-
-    //stock:Number,
-
-    /*image:[{
-        
-       
-        type:Schema.Types.ObjectId,
-        ref: "colores"
-        
-
-        
-    }],*/
+  
     
     colores:[
         {
             type:Schema.Types.ObjectId,
             ref:"colores"
         }
-]
+    ]
     
 
 })

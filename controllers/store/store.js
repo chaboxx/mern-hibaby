@@ -18,6 +18,7 @@ const ObtenerProductos = async(req,res=response) =>{
         }
     })
 
+    
 
    
   res.json({
@@ -31,7 +32,7 @@ const ObtenerProductos = async(req,res=response) =>{
 const CrearNuevoProducto= async (req,res=response) =>{
 
  
-
+    console.log(req.body)
 
     //const archivosImagen= req.files;
     
@@ -53,6 +54,9 @@ const CrearNuevoProducto= async (req,res=response) =>{
         descripcion,
         materiales,
         genero,
+        sku,
+        linkStore,
+
         precioMayor,
         precio,
         categoria,
@@ -71,7 +75,8 @@ const CrearNuevoProducto= async (req,res=response) =>{
         categoriaGeneral,
         descripcion,
         materiales,
-        
+        sku,
+        linkStore,
         precioMayor,
         precio,
         categoria,
@@ -206,20 +211,45 @@ const CrearNuevoProducto= async (req,res=response) =>{
        */
        //await productoSaved.save()
 
-       
+       console.log("tallas",tallasb)
+       console.log("stock",stock)
+    
+      let tallasbu0= await tallasb.map(i=>{
+          if (typeof(i)!=="object"){
+              return [i]
+          }else{
+              return i
+          }
+      })
       
-       let tallasbu= await tallasb.map(i=>{
+      let stockbu0= await stock.map(i=>{
+          if (typeof(i)!=="object"){
+              return [i]
+          }else{
+              return i
+          }
+      })
+
+    console.log("t",tallasbu0)
+    console.log("s",stockbu0)
+    
+      
+
+       let tallasbu= await tallasbu0.map(i=>{
            return (i.filter(e=>{
-               return e!=="undefined"
+                return (e!=="undefined" && e!=="")
            }))
        })
 
-        let stocku= await stock.map(i=>{
+        let stocku= await stockbu0.map(i=>{
         return (i.filter(e=>{
-            return e!=="undefined"
+            return (e!=="undefined" && e!=="")
         }))
         })
 
+
+    console.log("t1",tallasbu)
+    console.log("s1",stocku)
         
         
 

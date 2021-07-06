@@ -17,6 +17,8 @@ const UsuarioSchema = Schema({
         type:String,
         required:true
     }
+
+    
 });
 
 

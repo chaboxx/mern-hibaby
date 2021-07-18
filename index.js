@@ -75,6 +75,20 @@ app.use("/admin/api",require("./routes/admin/store/storeRoutes"));
 app.use("/api/checkout/carrito-compras",require("./routes/store/carritoComprasRoutes"));
 
 
+
+// -------------------------MERCADO PAGO--------------------------
+
+
+app.use("/checkout",require("./mercadopago/mercadopago"));
+
+
+
+
+
+
+
+
+
 // Escuchar peticiones
 
 app.listen(

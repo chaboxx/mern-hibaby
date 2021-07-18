@@ -12,11 +12,16 @@ const ObtenerProductosFront =async (req,res) =>{
         }
     })
 
+    let productosGo = {
+        ...productos,
+        precioMayor:0
+    }
 
     res.json({
         ok:true,
         msg:"Obtener Productos",
-        productos
+        productosGo,
+        
     
     })
 

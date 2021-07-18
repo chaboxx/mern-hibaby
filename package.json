@@ -18,6 +18,7 @@
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
     "jsonwebtoken": "^8.5.1",
+    "mercadopago": "^1.5.8",
     "moment": "^2.29.1",
     "mongoose": "^5.12.3",
     "multer": "^1.4.2"

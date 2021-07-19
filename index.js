@@ -1,7 +1,7 @@
 
 const express= require("express");
 
-require("dotenv");
+require("dotenv").config();
 
 const {dbConection} = require("./database/config");
 
@@ -25,14 +25,14 @@ app.use(cors());
 
 //Directorio publico
 //DIRECTORIO DE EL FRONT-END
-app.use( express.static("./client/public"));
+app.use( express.static(__dirname + 'client/public'));
 
 
 //------------------Directorio del admin--------------------
 
 
 
-app.use("/admin-hi-baby",express.static("./client/admin"))
+//app.use("/admin-hi-baby",express.static("./client/admin"))
 
 
 

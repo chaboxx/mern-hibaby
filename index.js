@@ -46,7 +46,7 @@ app.use( express.json() );
 app.use("/assets",express.static("./client/storage/imgs"))
 
 
-//                              Rutas , cuando refresheas la pagina!
+//----------------Rutas , cuando refresheas la pagina!
 
 // -----------RUTAS DE LA AUTENTICACION-----------------
 app.use("/api/auth", require("./routes/auth"));

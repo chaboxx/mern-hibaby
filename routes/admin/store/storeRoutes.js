@@ -8,7 +8,7 @@ const { check } = require("express-validator");
 const validarCamposAdmin = require("../../../middlewares/admin/mw_admin");
 
 
-const { ObtenerProductos,CrearNuevoProducto,ActualizarProducto,EliminarProducto,AñadirImagenesProducto } = require("../../../controllers/store/store");
+const { ObtenerProductos,CrearNuevoProducto,ActualizarProducto,EliminarProducto,AñadirImagenesProducto,ObtenerProducto ,AnadirVenta, leerVentas} = require("../../../controllers/store/store");
 const { validarAJwt } = require("../../../middlewares/admin/validar-ajwt");
 const upload = require("../../../helpers/admin/multer");
 
@@ -29,8 +29,13 @@ router.get("/",
         ObtenerProductos);
 
 
-//Crear nuevo evento
 
+//Obtener producto por Id
+
+router.post("/ver",
+        validarAJwt,
+        ObtenerProducto
+        )
 
 router.post("/new",
         [
@@ -45,6 +50,7 @@ router.post("/new",
             check("precio_mayor","Campo obligatorio"),
             check("precio","Campo obligatorio."),
             check("categoria","Campo obligatorio."),
+            check("stockTotal","Campo obligatorio"),
             check("colores","Campo obligatorio"),          
             //check("tallas","Campo obligatorio"),          
            
@@ -61,6 +67,12 @@ router.put("/new/:id",validarAJwt,upload.any(),AñadirImagenesProducto)
 
 // Actualizar evento    
 router.put("/:id",validarAJwt,ActualizarProducto);
+
+// POSTEAR VENTAS
+router.post("/new-venta",validarAJwt,AnadirVenta)
+
+//LEER VENTAS
+router.get("/ver-ventas",validarAJwt,leerVentas)
 
 //Borrar evento
 

@@ -8,8 +8,8 @@ const dbConection = async () =>{
         await mongoose.connect('mongodb+srv://chaboxx:muerte123@backendhibaby.harcr.mongodb.net/test', 
         {   useNewUrlParser: true, 
             useUnifiedTopology: true,
-            useCreateIndex:true
-        
+            useCreateIndex:true,
+            useFindAndModify:false
         });
 
         console.log("DB Online");

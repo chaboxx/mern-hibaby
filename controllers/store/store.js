@@ -7,6 +7,9 @@ const tallas = require("../../models/store/tallas")
 
 const ProductoSchema= require("../../models/store/producto");
 const upload = require("../../helpers/admin/multer");
+const VentasModelSchema = require("../../models/ventas/VentasModelSchema");
+
+const moment = require("moment");
 
 
 const ObtenerProductos = async(req,res=response) =>{
@@ -27,22 +30,29 @@ const ObtenerProductos = async(req,res=response) =>{
         productos
     })
 }
+//PRODUCTO POR ID 
+const ObtenerProducto = async(req,res)=>{
+    const productoSoloId= req.body.productoId;
+    
+    const productoSolo= await ProductoSchema.findById(productoSoloId).populate({
+        path:"colores",
+        populate:{
+            path:"tallas"
+        }
+    })
+   
+    res.json({
+        ok:true,
+        msg:"Obtener Producto",
+        productoSolo
+    })
+    
+}
 
 
 const CrearNuevoProducto= async (req,res=response) =>{
 
  
-    console.log(req.body)
-
-    //const archivosImagen= req.files;
-    
-       //const {filename} = req.files
-   
-       //console.log("**************************")
-       //console.log(req.files[0].filename)
-   
-       
-       //const productoId = req.body.id;
 
   
     
@@ -64,152 +74,12 @@ const CrearNuevoProducto= async (req,res=response) =>{
         tallasb,
         stock
     } = req.body;
-   
 
-   
-   
-   
-   
-    const productoNuevo = new ProductoSchema({
-        nombre,
-        categoriaGeneral,
-        descripcion,
-        materiales,
-        sku,
-        linkStore,
-        precioMayor,
-        precio,
-        categoria,
-        coloresb
-    })
-    
-    
-    
-//    const user= await ProductoSchema.findById(req.body.id)
-  //  const imagesRequest=[]
-//
- //   for(let i of archivosImagen){
+ 
 
-  //      imagesRequest.push(i.filename)
-    //}
-    
-    /*const producto_nuevo=  new ProductoSchema({
-        ...req.body,
-        image: {
-            id:productoId,
-            filename
-        },
-    });
-    */
-    
-    /*const newImage = new colores({
-        imagesNames: imagesRequest,
-        producto: user._id
-
-   })*/
     
     try{
-        
-        // *** producto_nuevo.id = req.id;
-        
-        
-        /*if (req.files){
 
-            for (let i of req.files){
-                console.log(i)
-                const {filename} = i;
-                producto_nuevo.setImgUrl(filename);
-
-            }
-            }
-        */
-        
-        
-        
-        const productoGuardado = await productoNuevo.save();
-        
-        //const {_id} = productoGuardado;
-
-        //const productoSaved = await ProductoSchema.findById(productoGuardado._id)
-        //const productoInsertar = await ProductoSchema.findById(productoGuardado._id)
-        
-        
-        //const idsImagenes=[]
-      
-        
-        /*for (let i=0; i<tallasb.length;i++){
-            
-            
-
-            const newTallaStock = new tallas({
-                nombreTalla: tallasb[i], 
-                stock:stock[i]
-            })
-            
-            
-
-            const tallaStockSaved=await newTallaStock.save()
-
-            //const tallaStockSaved= tallas.findById(newTallaStock._id)
-
-            
-            //const tallaStockId = tallas.findById(tallaStockSaved)
-            
-
-            const newImage = new colores({
-                urlImagenes: [`http://localhost:4000/assets/${archivosImagen[i].filename}`],
-                //producto: productoGuardado._id
-                //tallas: imageSaved._id
-                tallas:tallaStockSaved._id
-            })
-            const imageSaved =await newImage.save()
-
-            //const imageSaved = colores.findById(newImage._id)
-
-            //imageSaved.tallas.push(tallaStockSaved._id)
-            
-            productoInsertar.colores.push(imageSaved._id)
-            //productoSaved.image.push(newImage._id)
-            
-            //idsImagenes.push(JSON.stringify(newImage._id))
-        }
-        
-        await productoInsertar.save();*/
-        //user.image = user.image.concat(imagenGuardada._id)
-        
-        //await user.save()
-        
-        /*   res.json({
-            ok:true,
-            msg:"true",
-            imagen:imagenGuardada
-        })
-        */
-       /*const imageSaved = await colores.findById(imageG._id)
-
-
-       imageSaved.
-       const newTallas = new tallas({
-           tallasNames: ,
-           
-       })
-       
-       */
-      
-
-      
-      /*for (let o of idsImagenes){
-           const imagenEditar = await colores.findById(o);
-
-           const newTalla = new tallas({
-                tallasName:``
-           })
-
-       }
-        
-       
-       */
-       //await productoSaved.save()
 
        console.log("tallas",tallasb)
        console.log("stock",stock)
@@ -235,25 +105,52 @@ const CrearNuevoProducto= async (req,res=response) =>{
     
       
 
-       let tallasbu= await tallasbu0.map(i=>{
-           return (i.filter(e=>{
-                return (e!=="undefined" && e!=="")
-           }))
-       })
-
-        let stocku= await stockbu0.map(i=>{
+    let tallasbu= await tallasbu0.map(i=>{
         return (i.filter(e=>{
             return (e!=="undefined" && e!=="")
         }))
-        })
+    })
+
+    let stocku= await stockbu0.map(i=>{
+    return (i.filter(e=>{
+        return (e!=="undefined" && e!=="")
+    }))
+    })
 
 
     console.log("t1",tallasbu)
     console.log("s1",stocku)
-        
-        
+    let stockTotal=0;
+    for(let i=0;i<req.files.length;i++){
+       
+        for(let o of stocku[i]){
+            stockTotal=stockTotal+parseInt(o);
+        }
 
-       for(let i=0;i<req.files.length;i++){
+
+    }
+        
+        
+    const productoNuevo = new ProductoSchema({
+        nombre,
+        categoriaGeneral,
+        descripcion,
+        materiales,
+        sku,
+        linkStore,
+        precioMayor,
+        precio,
+        categoria,
+        stockTotal,
+        coloresb
+    })
+    
+       
+    const productoGuardado = await productoNuevo.save();
+
+    
+    
+    for(let i=0;i<req.files.length;i++){
            
             let aux4=0;
             //let aux3=tallasbu.length;
@@ -286,6 +183,7 @@ const CrearNuevoProducto= async (req,res=response) =>{
             }
 
             productoGuardado.colores.push(colorGuardado._id)
+            
         }
          
         //await productoGuardado.save();
@@ -466,8 +364,138 @@ const EliminarProducto= async (req,res=response) =>{
 }
 }
 
+const AnadirVenta =async (req,res)=>{
+
+    console.log(req.body)
+
+    let {idProductoVenta,idColoresVenta,idTallas,numeroVentas}=req.body;
+
+    const producto=await ProductoSchema.findById(idProductoVenta[0]);
+
+    const colorDelProducto= await colores.findById(idColoresVenta[0]);
+
+    //const tallasDelProducto= await tallas.findById(idTallas);
+    idTallas=idTallas.filter(i=>{
+        return (i!==null && i!=="" )
+    })
+    numeroVentas=numeroVentas.filter(i=>{
+        return (i!==null && i!=="" )
+    })
+    
+
+    console.log(numeroVentas)
+    
+    let sumaNumeroVentas=0
+    
+    for(let i of numeroVentas){
+        console.log(i)
+        sumaNumeroVentas=sumaNumeroVentas+parseInt(i)
+    }
+    
+    console.log("SumaNumeroVentas",sumaNumeroVentas)
+    //---------nuevo stock total
+    let nuevoStockTotal= parseInt(producto.stockTotal)-sumaNumeroVentas
+    
+    console.log("nuevoStockTotal",nuevoStockTotal)
+    console.log("stocktotal",producto.stockTotal)
+    
+    //actualizar stock Total
+
+    console.log("producto",producto)
+    let nuevoProducto={
+        ...producto._doc,
+        stockTotal:nuevoStockTotal
+    }
+    
+    const nuevoProductoSchema=await ProductoSchema.findByIdAndUpdate(idProductoVenta[0],nuevoProducto)
+    
+    //----------nuevo stock individual
+
+    for (let i=0;i<idTallas.length;i++){
+
+        let tallaProducto = await tallas.findById(idTallas[i]);
+    
+
+        let nuevoStock = tallaProducto.stock - parseInt(numeroVentas[i])
+
+        let nuevaTallaProducto = {
+            ...tallaProducto._doc,
+            stock:nuevoStock
+        
+        }
+        
+       
+       
+       const tallaActualizada= await tallas.findByIdAndUpdate(idTallas[i],nuevaTallaProducto)
+    
+       console.log(tallaActualizada)
+       
+       const ahora= moment().format('MMMM Do YYYY, h:mm:ss a');
+   
+       
+   
+       const venta = new VentasModelSchema({
+           fechaVenta: ahora,
+           productoVendido: idProductoVenta[0],
+           colorProductoVendido:idColoresVenta[0],
+           tallaProductoVendido:idTallas[i],
+           cantidadVendida: parseInt(numeroVentas[i])
+
+   
+       })
+
+       await venta.save()
+
+    }   
+    
+    
+    
+    
+    
+    
+    return res.json({
+        ok:true,
+        msg:"Venta Añadida",
+        
+    })
+
+    
+    
+}
+
+    
+const leerVentas = async(req,res)=>{
+
+    //poner de parametro fecha
+    
+    
+    const ventas =await VentasModelSchema.find()
+    .populate({path:"productoVendido"})
+    .populate({path:"colorProductoVendido"})
+    .populate({path:"tallaProductoVendido"})
+
+
+
+
+
+    return res.json({
+        ok:true,
+        msg:"Ventas",
+        ventas
+    })
+}    
+    
+    
+    
+
+
+
+
 module.exports={
+    leerVentas,
+    AnadirVenta,
     ObtenerProductos,
+    ObtenerProducto,
     CrearNuevoProducto,
     ActualizarProducto,
     EliminarProducto,

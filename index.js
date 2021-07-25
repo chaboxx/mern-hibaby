@@ -63,11 +63,14 @@ app.use("/api/events",require("./routes/events"));
 
 // ------------TODO: CREACION DE LA TIENDA ----------
 
+// -------------------------AUTH
 app.use("/admin/api/auth",require("./routes/admin/auth_admin"));
 
 
-
+// -------------------------- STOREROUTES CRUD
 app.use("/admin/api",require("./routes/admin/store/storeRoutes"));
+
+
 
 //----------------CARRITO DE COMPRAS
 

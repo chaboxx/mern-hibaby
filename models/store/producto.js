@@ -39,7 +39,7 @@ const productoSchema =  new Schema({
     
     categoria:[String],
 
-  
+    stockTotal:Number,
     
     colores:[
         {
